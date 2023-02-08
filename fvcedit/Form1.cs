@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Drawing.Drawing2D;
 using static System.Math;
 
 namespace fvcedit
@@ -7,6 +8,9 @@ namespace fvcedit
 	{
 		Bitmap workingImage = new(1, 1);
 		Bitmap finalImage = new(1, 1);
+
+		CheckerboardOptions cbOptions = new();
+		FastgradientOptions fgOptions = new();
 
 		public static Color incrementRgb(Color i, int r, int g, int b)
 		{
@@ -24,6 +28,12 @@ namespace fvcedit
 				255 - i.B
 			);
 		}
+		public static Color onebitPx(Color i)
+			=> Color.FromArgb(
+				(int)Round(i.R / 255f) * 255,
+				(int)Round(i.G / 255f) * 255,
+				(int)Round(i.B / 255f) * 255
+			);
 
 
 		// https://stackoverflow.com/a/3837824
@@ -116,11 +126,20 @@ namespace fvcedit
 		public Form1()
 		{
 			InitializeComponent();
+			comboBox1_SelectedIndexChanged(this, new());
+			button4_Click(this, new());
 		}
 
 		private void button2_Click(object sender, EventArgs e)
 		{
-			finalImage.Save(textBox1.Text);
+			try
+			{
+				finalImage.Save(textBox1.Text);
+			}
+			catch (Exception ex)
+			{
+				Debug.WriteLine("Error: " + ex.Message);
+			}
 		}
 
 		private void button1_Click(object sender, EventArgs e)
@@ -269,12 +288,23 @@ namespace fvcedit
 			pictureBox1.BackgroundImage = (Bitmap)finalImage.Clone();
 		}
 
+		private void button11_Click(object sender, EventArgs e)
+		{
+			Debug.WriteLine("onebit started");
+			finalImage = Effectmanager.onebit(workingImage);
+			Debug.WriteLine("onebit finished");
+			pictureBox1.BackgroundImage = (Bitmap)finalImage.Clone();
+		}
+
 		private void button12_Click(object sender, EventArgs e)
 		{
 			try
 			{
 				DialogResult r1, r2;
 				Color c1, c2;
+				Point pa, pb;
+				Stopwatch s = new();
+				Debug.WriteLine($"generating {comboBox1.SelectedItem} started");
 				switch (comboBox1.SelectedItem.ToString())
 				{
 					case "GradientX":
@@ -285,7 +315,8 @@ namespace fvcedit
 							c1 = gradientColorA.Color;
 						if (r2 == DialogResult.OK)
 							c2 = gradientColorB.Color;
-						
+
+						s.Start();
 						finalImage = Genmanager.gradientX(int.Parse(textBox2.Text), int.Parse(textBox3.Text), c1, c2);
 						break;
 					case "GradientY":
@@ -297,18 +328,103 @@ namespace fvcedit
 						if (r2 == DialogResult.OK)
 							c2 = gradientColorB.Color;
 
+						s.Start();
 						finalImage = Genmanager.gradientY(int.Parse(textBox2.Text), int.Parse(textBox3.Text), c1, c2);
+						break;
+					case "Checkerboard":
+						s.Start();
+						finalImage = Genmanager.checkerboard(
+							int.Parse(textBox2.Text), int.Parse(textBox3.Text),
+							int.Parse(cbOptions.textBox1.Text), int.Parse(cbOptions.textBox2.Text),
+							cbOptions.cbColorDark.Color, cbOptions.cbColorBright.Color,
+							cbOptions.radioButton2.Checked
+						);
+						break;
+					case "Fastgradient":
+						s.Start();
+						finalImage = Genmanager.fastGradient(
+							int.Parse(textBox2.Text), int.Parse(textBox3.Text),
+							fgOptions.pointA, fgOptions.pointB,
+							fgOptions.fgColorA.Color, fgOptions.fgColorB.Color
+						);
+						break;
+					case "GradientX-Fast":
+						pa = new(0, 0);
+						pb = new(int.Parse(textBox2.Text), 0);
+
+						r1 = gradientColorA.ShowDialog();
+						r2 = gradientColorB.ShowDialog();
+
+						c1 = Color.Black; c2 = Color.White;
+
+						if (r1 == DialogResult.OK)
+							c1 = gradientColorA.Color;
+						if (r2 == DialogResult.OK)
+							c2 = gradientColorB.Color;
+
+						s.Start();
+						finalImage = Genmanager.fastGradient(
+							int.Parse(textBox2.Text), int.Parse(textBox3.Text),
+							pa, pb,
+							c1, c2
+						);
+						break;
+					case "GradientY-Fast":
+						pa = new(0, 0);
+						pb = new(0, int.Parse(textBox3.Text));
+
+						r1 = gradientColorA.ShowDialog();
+						r2 = gradientColorB.ShowDialog();
+
+						c1 = Color.Black; c2 = Color.White;
+
+						if (r1 == DialogResult.OK)
+							c1 = gradientColorA.Color;
+						if (r2 == DialogResult.OK)
+							c2 = gradientColorB.Color;
+
+						s.Start();
+						finalImage = Genmanager.fastGradient(
+							int.Parse(textBox2.Text), int.Parse(textBox3.Text),
+							pa, pb,
+							c1, c2
+						);
 						break;
 
 					case null:
 					default:
 						break;
 				}
+				s.Stop();
+				Debug.WriteLine($"generating {comboBox1.SelectedItem} finished ({s.ElapsedMilliseconds}ms)");
 				pictureBox1.BackgroundImage = (Bitmap)finalImage.Clone();
 			}
 			catch (Exception ex)
 			{
 				Debug.WriteLine("Error: " + ex.Message);
+			}
+		}
+
+		private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			//Debug.WriteLine(comboBox1.Text);
+			button13.Enabled = comboBox1.Text switch
+			{
+				"Checkerboard" or "Fastgradient" => true,
+				_ => false
+			};
+		}
+
+		private void button13_Click(object sender, EventArgs e)
+		{
+			switch (comboBox1.Text)
+			{
+				case "Checkerboard":
+					cbOptions.ShowDialog();
+					break;
+				case "Fastgradient":
+					fgOptions.ShowDialog();
+					break;
 			}
 		}
 	}
@@ -327,7 +443,7 @@ namespace fvcedit
 		public static Func<Bitmap, Bitmap>
 			hueshiftX = b =>
 			{
-				Bitmap o = (Bitmap)b.Clone();
+				Bitmap o = new(b.Width, b.Height);
 				for (int i = 0; i < o.Width; i += o.Width / 360)
 				{
 					for (int y = 0; y < o.Height; y++)
@@ -343,7 +459,7 @@ namespace fvcedit
 			},
 			hueshiftY = b =>
 			{
-				Bitmap o = (Bitmap)b.Clone();
+				Bitmap o = new(b.Width, b.Height);
 				for (int i = 0; i < o.Height; i += o.Height / 360)
 				{
 					for (int y = i; y < o.Height / 360 + i; y++)
@@ -359,7 +475,7 @@ namespace fvcedit
 			},
 			invert = b =>
 			{
-				Bitmap o = (Bitmap)b.Clone();
+				Bitmap o = new(b.Width, b.Height);
 				for (int y = 0; y < b.Height; y++)
 				{
 					for (int x = 0; x < b.Width; x++)
@@ -371,7 +487,7 @@ namespace fvcedit
 			},
 			brightmap = b =>
 			{
-				Bitmap o = (Bitmap)b.Clone();
+				Bitmap o = new(b.Width, b.Height);
 				for (int y = 0; y < b.Height; y++)
 				{
 					for (int x = 0; x < b.Width; x++)
@@ -404,6 +520,18 @@ namespace fvcedit
 					{
 						int color = (int)(b.GetPixel(x, y).GetHue() / 360 * 255);
 						o.SetPixel(x, y, Color.FromArgb(color, color, color));
+					}
+				}
+				return o;
+			},
+			onebit = b =>
+			{
+				Bitmap o = new(b.Width, b.Height);
+				for (int y = 0; y < b.Height; y++)
+				{
+					for (int x = 0; x < b.Width; x++)
+					{
+						o.SetPixel(x, y, Form1.onebitPx(b.GetPixel(x, y)));
 					}
 				}
 				return o;
@@ -443,6 +571,35 @@ namespace fvcedit
 						bmp.SetPixel(x, y, c);
 					}
 				}
+
+				return bmp;
+			};
+		public static Func<int, int, int, int, Color, Color, bool, Bitmap>
+			checkerboard = (xs, ys, xsq, ysq, a, b, revOrder) =>
+			{
+				Bitmap o = new Bitmap(xs, ys);
+				Graphics g = Graphics.FromImage(o);
+
+				for (int y = 0; y < ys; y += ysq)
+				{
+					for (int x = 0; x < xs; x += xsq)
+					{
+						int r = revOrder ? 1 : 0;
+						Color c = (x / xsq + y / ysq) % 2 == r ? a : b;
+						g.FillRectangle(new SolidBrush(c), x, y, xsq, ysq);
+					}
+				}
+
+				return o;
+			};
+		public static Func<int, int, Point, Point, Color, Color, Bitmap>
+			fastGradient = (xs, ys, p1, p2, a, b) =>
+			{
+				Bitmap bmp = new(xs, ys);
+				Graphics g = Graphics.FromImage(bmp);
+				LinearGradientBrush brush = new(p1, p2, a, b);
+
+				g.FillRectangle(brush, 0, 0, xs, ys);
 
 				return bmp;
 			};

@@ -46,6 +46,7 @@
 			this.satBar = new System.Windows.Forms.TrackBar();
 			this.hueBar = new System.Windows.Forms.TrackBar();
 			this.tabPage3 = new System.Windows.Forms.TabPage();
+			this.button11 = new System.Windows.Forms.Button();
 			this.button10 = new System.Windows.Forms.Button();
 			this.button9 = new System.Windows.Forms.Button();
 			this.button8 = new System.Windows.Forms.Button();
@@ -53,6 +54,7 @@
 			this.button6 = new System.Windows.Forms.Button();
 			this.button5 = new System.Windows.Forms.Button();
 			this.tabPage4 = new System.Windows.Forms.TabPage();
+			this.button13 = new System.Windows.Forms.Button();
 			this.label10 = new System.Windows.Forms.Label();
 			this.button12 = new System.Windows.Forms.Button();
 			this.comboBox1 = new System.Windows.Forms.ComboBox();
@@ -273,6 +275,7 @@
 			// 
 			// tabPage3
 			// 
+			this.tabPage3.Controls.Add(this.button11);
 			this.tabPage3.Controls.Add(this.button10);
 			this.tabPage3.Controls.Add(this.button9);
 			this.tabPage3.Controls.Add(this.button8);
@@ -286,6 +289,16 @@
 			this.tabPage3.TabIndex = 2;
 			this.tabPage3.Text = "Effectmanager";
 			this.tabPage3.UseVisualStyleBackColor = true;
+			// 
+			// button11
+			// 
+			this.button11.Location = new System.Drawing.Point(603, 3);
+			this.button11.Name = "button11";
+			this.button11.Size = new System.Drawing.Size(94, 29);
+			this.button11.TabIndex = 6;
+			this.button11.Text = "Onebit";
+			this.button11.UseVisualStyleBackColor = true;
+			this.button11.Click += new System.EventHandler(this.button11_Click);
 			// 
 			// button10
 			// 
@@ -349,6 +362,7 @@
 			// 
 			// tabPage4
 			// 
+			this.tabPage4.Controls.Add(this.button13);
 			this.tabPage4.Controls.Add(this.label10);
 			this.tabPage4.Controls.Add(this.button12);
 			this.tabPage4.Controls.Add(this.comboBox1);
@@ -362,6 +376,16 @@
 			this.tabPage4.TabIndex = 3;
 			this.tabPage4.Text = "Genmanager";
 			this.tabPage4.UseVisualStyleBackColor = true;
+			// 
+			// button13
+			// 
+			this.button13.Location = new System.Drawing.Point(603, 52);
+			this.button13.Name = "button13";
+			this.button13.Size = new System.Drawing.Size(94, 29);
+			this.button13.TabIndex = 9;
+			this.button13.Text = "Options";
+			this.button13.UseVisualStyleBackColor = true;
+			this.button13.Click += new System.EventHandler(this.button13_Click);
 			// 
 			// label10
 			// 
@@ -388,12 +412,17 @@
 			this.comboBox1.FlatStyle = System.Windows.Forms.FlatStyle.System;
 			this.comboBox1.FormattingEnabled = true;
 			this.comboBox1.Items.AddRange(new object[] {
+            "Fastgradient",
             "GradientX",
-            "GradientY"});
+            "GradientY",
+            "GradientX-Fast",
+            "GradientY-Fast",
+            "Checkerboard"});
 			this.comboBox1.Location = new System.Drawing.Point(83, 69);
 			this.comboBox1.Name = "comboBox1";
 			this.comboBox1.Size = new System.Drawing.Size(151, 28);
 			this.comboBox1.TabIndex = 6;
+			this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
 			// 
 			// textBox3
 			// 
@@ -515,7 +544,7 @@
 			this.Margin = new System.Windows.Forms.Padding(4);
 			this.MaximizeBox = false;
 			this.Name = "Form1";
-			this.Text = "FormVideoColoredit v003";
+			this.Text = "FormVideoColoredit v004";
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
 			this.tabControl1.ResumeLayout(false);
 			this.tabPage1.ResumeLayout(false);
@@ -577,5 +606,7 @@
 		private Button button12;
 		private ColorDialog gradientColorA;
 		private ColorDialog gradientColorB;
+		private Button button11;
+		private Button button13;
 	}
 }
