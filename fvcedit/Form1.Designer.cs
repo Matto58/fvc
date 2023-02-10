@@ -62,6 +62,17 @@
 			this.label9 = new System.Windows.Forms.Label();
 			this.textBox2 = new System.Windows.Forms.TextBox();
 			this.label8 = new System.Windows.Forms.Label();
+			this.tabPage5 = new System.Windows.Forms.TabPage();
+			this.tabControl2 = new System.Windows.Forms.TabControl();
+			this.tabPage6 = new System.Windows.Forms.TabPage();
+			this.button14 = new System.Windows.Forms.Button();
+			this.textBox5 = new System.Windows.Forms.TextBox();
+			this.label11 = new System.Windows.Forms.Label();
+			this.fontBox = new System.Windows.Forms.ComboBox();
+			this.button15 = new System.Windows.Forms.Button();
+			this.textBox4 = new System.Windows.Forms.TextBox();
+			this.tabPage7 = new System.Windows.Forms.TabPage();
+			this.label13 = new System.Windows.Forms.Label();
 			this.button1 = new System.Windows.Forms.Button();
 			this.button2 = new System.Windows.Forms.Button();
 			this.textBox1 = new System.Windows.Forms.TextBox();
@@ -70,6 +81,7 @@
 			this.button4 = new System.Windows.Forms.Button();
 			this.gradientColorA = new System.Windows.Forms.ColorDialog();
 			this.gradientColorB = new System.Windows.Forms.ColorDialog();
+			this.solidColor = new System.Windows.Forms.ColorDialog();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
@@ -82,6 +94,10 @@
 			((System.ComponentModel.ISupportInitialize)(this.hueBar)).BeginInit();
 			this.tabPage3.SuspendLayout();
 			this.tabPage4.SuspendLayout();
+			this.tabPage5.SuspendLayout();
+			this.tabControl2.SuspendLayout();
+			this.tabPage6.SuspendLayout();
+			this.tabPage7.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// pictureBox1
@@ -101,11 +117,13 @@
 			// 
 			// tabControl1
 			// 
-			this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.tabControl1.Controls.Add(this.tabPage1);
 			this.tabControl1.Controls.Add(this.tabPage2);
 			this.tabControl1.Controls.Add(this.tabPage3);
 			this.tabControl1.Controls.Add(this.tabPage4);
+			this.tabControl1.Controls.Add(this.tabPage5);
 			this.tabControl1.Location = new System.Drawing.Point(15, 460);
 			this.tabControl1.Margin = new System.Windows.Forms.Padding(4);
 			this.tabControl1.Name = "tabControl1";
@@ -417,7 +435,8 @@
             "GradientY",
             "GradientX-Fast",
             "GradientY-Fast",
-            "Checkerboard"});
+            "Checkerboard",
+            "Solid"});
 			this.comboBox1.Location = new System.Drawing.Point(83, 69);
 			this.comboBox1.Name = "comboBox1";
 			this.comboBox1.Size = new System.Drawing.Size(151, 28);
@@ -456,8 +475,120 @@
 			this.label8.TabIndex = 0;
 			this.label8.Text = "Xsize";
 			// 
+			// tabPage5
+			// 
+			this.tabPage5.Controls.Add(this.tabControl2);
+			this.tabPage5.Location = new System.Drawing.Point(4, 29);
+			this.tabPage5.Name = "tabPage5";
+			this.tabPage5.Size = new System.Drawing.Size(700, 113);
+			this.tabPage5.TabIndex = 4;
+			this.tabPage5.Text = "Overlaymanager";
+			this.tabPage5.UseVisualStyleBackColor = true;
+			// 
+			// tabControl2
+			// 
+			this.tabControl2.Controls.Add(this.tabPage6);
+			this.tabControl2.Controls.Add(this.tabPage7);
+			this.tabControl2.Location = new System.Drawing.Point(3, 3);
+			this.tabControl2.Name = "tabControl2";
+			this.tabControl2.SelectedIndex = 0;
+			this.tabControl2.Size = new System.Drawing.Size(694, 107);
+			this.tabControl2.TabIndex = 0;
+			// 
+			// tabPage6
+			// 
+			this.tabPage6.Controls.Add(this.button14);
+			this.tabPage6.Controls.Add(this.textBox5);
+			this.tabPage6.Controls.Add(this.label11);
+			this.tabPage6.Controls.Add(this.fontBox);
+			this.tabPage6.Controls.Add(this.button15);
+			this.tabPage6.Controls.Add(this.textBox4);
+			this.tabPage6.Location = new System.Drawing.Point(4, 29);
+			this.tabPage6.Name = "tabPage6";
+			this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
+			this.tabPage6.Size = new System.Drawing.Size(686, 74);
+			this.tabPage6.TabIndex = 0;
+			this.tabPage6.Text = "Text";
+			this.tabPage6.UseVisualStyleBackColor = true;
+			// 
+			// button14
+			// 
+			this.button14.Location = new System.Drawing.Point(484, 42);
+			this.button14.Name = "button14";
+			this.button14.Size = new System.Drawing.Size(123, 29);
+			this.button14.TabIndex = 12;
+			this.button14.Text = "More options";
+			this.button14.UseVisualStyleBackColor = true;
+			this.button14.Click += new System.EventHandler(this.button14_Click);
+			// 
+			// textBox5
+			// 
+			this.textBox5.Location = new System.Drawing.Point(278, 43);
+			this.textBox5.Name = "textBox5";
+			this.textBox5.Size = new System.Drawing.Size(53, 27);
+			this.textBox5.TabIndex = 11;
+			this.textBox5.Text = "12";
+			// 
+			// label11
+			// 
+			this.label11.AutoSize = true;
+			this.label11.Location = new System.Drawing.Point(6, 46);
+			this.label11.Name = "label11";
+			this.label11.Size = new System.Drawing.Size(41, 20);
+			this.label11.TabIndex = 10;
+			this.label11.Text = "Font:";
+			// 
+			// fontBox
+			// 
+			this.fontBox.FormattingEnabled = true;
+			this.fontBox.Location = new System.Drawing.Point(53, 43);
+			this.fontBox.Name = "fontBox";
+			this.fontBox.Size = new System.Drawing.Size(219, 28);
+			this.fontBox.TabIndex = 9;
+			this.fontBox.Text = "Segoe UI";
+			// 
+			// button15
+			// 
+			this.button15.Location = new System.Drawing.Point(613, 42);
+			this.button15.Name = "button15";
+			this.button15.Size = new System.Drawing.Size(67, 29);
+			this.button15.TabIndex = 5;
+			this.button15.Text = "Add";
+			this.button15.UseVisualStyleBackColor = true;
+			this.button15.Click += new System.EventHandler(this.button15_Click);
+			// 
+			// textBox4
+			// 
+			this.textBox4.Location = new System.Drawing.Point(6, 3);
+			this.textBox4.Name = "textBox4";
+			this.textBox4.PlaceholderText = "Text";
+			this.textBox4.Size = new System.Drawing.Size(674, 27);
+			this.textBox4.TabIndex = 0;
+			// 
+			// tabPage7
+			// 
+			this.tabPage7.Controls.Add(this.label13);
+			this.tabPage7.Location = new System.Drawing.Point(4, 29);
+			this.tabPage7.Name = "tabPage7";
+			this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
+			this.tabPage7.Size = new System.Drawing.Size(686, 74);
+			this.tabPage7.TabIndex = 1;
+			this.tabPage7.Text = "Image";
+			this.tabPage7.UseVisualStyleBackColor = true;
+			// 
+			// label13
+			// 
+			this.label13.AutoSize = true;
+			this.label13.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
+			this.label13.Location = new System.Drawing.Point(3, 3);
+			this.label13.Name = "label13";
+			this.label13.Size = new System.Drawing.Size(101, 20);
+			this.label13.TabIndex = 0;
+			this.label13.Text = "(coming soon)";
+			// 
 			// button1
 			// 
+			this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.button1.Location = new System.Drawing.Point(863, 541);
 			this.button1.Margin = new System.Windows.Forms.Padding(4);
 			this.button1.Name = "button1";
@@ -469,6 +600,7 @@
 			// 
 			// button2
 			// 
+			this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.button2.Location = new System.Drawing.Point(731, 541);
 			this.button2.Margin = new System.Windows.Forms.Padding(4);
 			this.button2.Name = "button2";
@@ -480,6 +612,7 @@
 			// 
 			// textBox1
 			// 
+			this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.textBox1.Location = new System.Drawing.Point(731, 506);
 			this.textBox1.Margin = new System.Windows.Forms.Padding(4);
 			this.textBox1.Name = "textBox1";
@@ -488,6 +621,7 @@
 			// 
 			// label1
 			// 
+			this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.label1.AutoSize = true;
 			this.label1.Location = new System.Drawing.Point(731, 481);
 			this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -498,6 +632,7 @@
 			// 
 			// button3
 			// 
+			this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.button3.Location = new System.Drawing.Point(863, 578);
 			this.button3.Margin = new System.Windows.Forms.Padding(4);
 			this.button3.Name = "button3";
@@ -509,6 +644,7 @@
 			// 
 			// button4
 			// 
+			this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.button4.Location = new System.Drawing.Point(731, 579);
 			this.button4.Margin = new System.Windows.Forms.Padding(4);
 			this.button4.Name = "button4";
@@ -525,6 +661,11 @@
 			// gradientColorB
 			// 
 			this.gradientColorB.AnyColor = true;
+			this.gradientColorB.Color = System.Drawing.Color.White;
+			// 
+			// solidColor
+			// 
+			this.solidColor.Color = System.Drawing.Color.White;
 			// 
 			// Form1
 			// 
@@ -544,7 +685,7 @@
 			this.Margin = new System.Windows.Forms.Padding(4);
 			this.MaximizeBox = false;
 			this.Name = "Form1";
-			this.Text = "FormVideoColoredit v004";
+			this.Text = "FormVideoColoredit v005";
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
 			this.tabControl1.ResumeLayout(false);
 			this.tabPage1.ResumeLayout(false);
@@ -560,6 +701,12 @@
 			this.tabPage3.ResumeLayout(false);
 			this.tabPage4.ResumeLayout(false);
 			this.tabPage4.PerformLayout();
+			this.tabPage5.ResumeLayout(false);
+			this.tabControl2.ResumeLayout(false);
+			this.tabPage6.ResumeLayout(false);
+			this.tabPage6.PerformLayout();
+			this.tabPage7.ResumeLayout(false);
+			this.tabPage7.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -608,5 +755,17 @@
 		private ColorDialog gradientColorB;
 		private Button button11;
 		private Button button13;
+		private TabPage tabPage5;
+		private TabControl tabControl2;
+		private TabPage tabPage6;
+		private TextBox textBox4;
+		private TabPage tabPage7;
+		private Button button15;
+		private Label label11;
+		private ComboBox fontBox;
+		private TextBox textBox5;
+		private ColorDialog solidColor;
+		private Label label13;
+		private Button button14;
 	}
 }
